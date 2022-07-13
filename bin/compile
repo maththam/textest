@@ -39,7 +39,7 @@ mkdir -p "$TEXLIVE_CACHE"
 mkdir -p "$(dirname "$PROFILE_D")"
 
 if [ "$(ls -A "$TEXLIVE_CACHE")" ]; then
-    build-step "Setting up build cache..."
+    build-step "Setting up build cache... $BUILD_DIR"
     cp -R "$TEXLIVE_CACHE/"* "$TEXLIVE_HOME"
 fi
 
