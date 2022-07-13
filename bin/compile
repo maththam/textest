@@ -39,7 +39,7 @@ mkdir -p "$TEXLIVE_CACHE"
 mkdir -p "$(dirname "$PROFILE_D")"
 
 if [ "$(ls -A "$TEXLIVE_CACHE")" ]; then
-    build-step "Setting up build cache... $BUILD_DIR"
+    build-step "Setting up build cache..."
     cp -R "$TEXLIVE_CACHE/"* "$TEXLIVE_HOME"
 fi
 
@@ -73,7 +73,7 @@ build-step "Updating TeX Live..."
 tlmgr option repository "$TEXLIVE_REPOSITORY"
 tlmgr update --self
 
-echo -e "enumitem\ntikz" > "$BUILD_DIR/texlive.packages"
+echo -e "enumitem\npgf" > "$BUILD_DIR/texlive.packages"
 
 # install user-provided-packages
 if [ -f "$BUILD_DIR/texlive.packages" ]; then
