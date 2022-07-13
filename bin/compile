@@ -73,7 +73,7 @@ build-step "Updating TeX Live..."
 tlmgr option repository "$TEXLIVE_REPOSITORY"
 tlmgr update --self
 
-echo -e "enumitem\npgf\ncaption\npgfplots\ncolortbl\nmultirow\nmakecell\nfloat\nfontspec\nsoul\nmhchem\nchemfig" > "$BUILD_DIR/texlive.packages"
+echo -e "enumitem\npgf\ncaption\npgfplots\ncolortbl\nmultirow\nmakecell\nfloat\nfontspec\nsoul\nmhchem\nchemfig\nsimplekv" > "$BUILD_DIR/texlive.packages"
 
 # install user-provided-packages
 if [ -f "$BUILD_DIR/texlive.packages" ]; then
