@@ -4,10 +4,19 @@
 # fail fast
 set -e
 
+function indent() {
+	c='s/^/       /'
+	case $(uname) in
+		Darwin) sed -l "$c";;
+		*)      sed -u "$c";;
+	esac
+}
+
 BUILD_DIR=$1
 CACHE_DIR=$2
 BIN_DIR=$(cd "$(dirname "$0")"; pwd) # absolute path
-
+SOURCE_DIR="$(dirname $0)/../fonts.tar.gz"
+TARGET_DIR="$BUILD_DIR/.fonts"
 
 TEXLIVE_REPOSITORY="http://mirror.ctan.org/systems/texlive/tlnet"
 
@@ -37,6 +46,7 @@ source "$BIN_DIR/utils"
 mkdir -p "$TEXLIVE_HOME"
 mkdir -p "$TEXLIVE_CACHE"
 mkdir -p "$(dirname "$PROFILE_D")"
+mkdir -p "$TARGET_DIR"
 
 if [ "$(ls -A "$TEXLIVE_CACHE")" ]; then
     build-step "Setting up build cache..."
@@ -67,6 +77,10 @@ if [ ! "$(which pdflatex)" ]; then
 
     ./install-tl --repository="$TEXLIVE_REPOSITORY" --profile="$PROF"
 fi
+
+echo "-----> Extracting fonts to $TARGET_DIR"
+tar -xvzf "$SOURCE_DIR" -C "$TARGET_DIR" | indent
+fc-cache -fv
 
 build-step "Updating TeX Live..."
 
